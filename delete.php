@@ -7,21 +7,20 @@ $dbname = "heerakarim";
 // Create connection
 $conn = new mysqli('localhost','root','','heerakarim');
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch data
-$sql = "SELECT id, name, gender, email, address FROM register";
-$result = $conn->query($sql);
+$id = $_GET['id'];
 
-$records = [];
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        $records[] = $row;
-    }
+$sql = "DELETE FROM register WHERE id = $id";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Record deleted successfully";
+} else {
+    echo "Error deleting record: " . $conn->error;
 }
 
 $conn->close();
+header("Location: records.html");
 ?>
