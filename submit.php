@@ -12,21 +12,21 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get form data
-$name = $_POST['name'];
-$gender = $_POST['gender'];
-$email = $_POST['email'];
-$address = $_POST['address'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'];
+    $gender = $_POST['gender'];
+    $email = $_POST['email'];
+    $address = $_POST['address'];
 
-// Insert data into table
-$sql = "INSERT INTO register (name, gender, email, address) VALUES ('$name', '$gender', '$email', '$address')";
+    $sql = "INSERT INTO register (name, gender, email, address) VALUES ('$name', '$gender', '$email', '$address')";
 
-if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-    header("Location: records.html"); // Redirect to records page
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+        header('Location: record.html');
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
 }
-
-$conn->close();
 ?>

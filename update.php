@@ -13,13 +13,17 @@ if ($conn->connect_error) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];
+    $name = $_POST['name'];
+    $gender = $_POST['gender'];
+    $email = $_POST['email'];
+    $address = $_POST['address'];
 
-    $sql = "DELETE FROM register WHERE id=$id";
+    $sql = "UPDATE register SET name='$name', gender='$gender', email='$email', address='$address' WHERE id=$id";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Record deleted successfully";
+        echo "Record updated successfully";
     } else {
-        echo "Error deleting record: " . $conn->error;
+        echo "Error updating record: " . $conn->error;
     }
 
     $conn->close();
